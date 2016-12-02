@@ -1,4 +1,7 @@
 var webpack = require("webpack");
+var PACKAGE = require('./package.json');
+
+var banner = PACKAGE.name + ' - ' + PACKAGE.version;
 
 module.exports = {
 
@@ -9,6 +12,7 @@ module.exports = {
     filename: "bundle.min.js"
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({minimize: true})
+    new webpack.optimize.UglifyJsPlugin({minimize: true}),
+    new webpack.BannerPlugin(banner)
   ]
 };

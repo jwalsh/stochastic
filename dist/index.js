@@ -1,1 +1,1 @@
-window.stoch = require('../lib/index.js');
+window.tsnejs = require('../lib/index.js');
