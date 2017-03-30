@@ -17,10 +17,11 @@ jhj P hGh p GfG h
 `;
 
 // https://wickstrom.tech/generative-music/2016/08/07/generating-sight-reading-exercises-using-constraint-logic-programming-in-clojure-part-1.html
+const JOINER = ' ';
 let example = lorem
   .toLowerCase()
   .replace(/[^a-z ]/g, '')
-  .split('');
+  .split(JOINER);
 
 const dist = example
         .reduce((p, c) => {
@@ -47,4 +48,4 @@ const transMatrix = stoch.collate(states);
 // console.log(transMatrix);
 
 const dtmc = stoch.DTMC(transMatrix, 100, 0, true);
-console.log('Example Lorem Ipsum:', dtmc.map((e, i, c) => uniques[e]).join(''));
+console.log('Example:', dtmc.map((e, i, c) => uniques[e]).join(JOINER));
