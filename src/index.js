@@ -11,9 +11,9 @@
  * @returns {number[]} times of each arrival in a Poisson Process
  */
 export function poissP(
-  lambda/*: number */,
-  T/*: number */,
-  path/*: boolean */) /*: Array<number> */ {
+  lambda = 0/*: number */,
+  T = 0/*: number */,
+  path = true/*: boolean */) /*: Array<number> */ {
   let U, exp, N_t, t, n;
   N_t = [0];
   t = 0;
@@ -50,7 +50,7 @@ export function poissP(
  * @param {number} [num=1] a positive integer
  * @returns {number[]} normal random values
  */
-export const norm = (mu/*: number */, sigma/*: number */, num/*: number */)/*: Array<number> */ =>  {
+export const norm = (mu = 1/*: number */, sigma = 0/*: number */, num = 0/*: number */)/*: Array<number> */ =>  {
   let U1, U2, x, y, z1, z2;
   let sample = [];
 
@@ -356,7 +356,7 @@ export function sample(arr/*: number[] */, n/*: number */) /*: Array<number> */ 
  * @param {number} lambda (positive)
  * @returns {number} variable
  */
-export function exp(lambda/*: number */) /*: number */ {
+export function exp(lambda = 1/*: number */) /*: number */ {
   return -Math.log(Math.random()) / lambda;
 }
 
