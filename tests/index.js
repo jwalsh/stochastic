@@ -1,4 +1,5 @@
-import * as stoch from '../src/index';
+// import * as stoch from '../src/index';
+import * as stoch from '../lib/index';
 
 import _ from 'lodash';
 import { spec, valid, explain, conform } from 'js.spec';

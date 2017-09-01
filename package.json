@@ -26,7 +26,8 @@
     "build": "./node_modules/.bin/babel src -d lib",
     "externs": "./node_modules/.bin/generate-extern -f dist/bundle.min.js  -n stoch -o stochastic-extern.js",
     "start": "./node_modules/.bin/babel-node src/index.js",
-    "test": "./node_modules/.bin/babel-node tests/index.js"
+    "test": "npm build && ./node_modules/.bin/babel tests/index.js > dist/test.js && node dist/test.js",
+    "cover": "./node_modules/.bin/nyc npm test && ./node_modules/.bin/tap dist/test.js"
   },
   "license": "MIT",
   "repository": {
@@ -44,7 +45,9 @@
     "google-closure-compiler": "^20170521.0.0",
     "js.spec": "^1.0.0-3",
     "lodash": "^4.17.4",
+    "nyc": "^11.1.0",
     "plotter": "^0.5.0",
+    "tap": "^10.7.2",
     "webpack": "^3.0.0"
   },
   "dependencies": {
