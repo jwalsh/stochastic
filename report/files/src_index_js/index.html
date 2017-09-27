@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - src/index.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>src/index.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">59.49</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">421</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">109.44</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.93</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/* @flow */
+
+/**
+ * Returns an array with the times of each arrival in a [Poisson Process](http://en.wikipedia.org/wiki/Poisson_process) with rate `lambda` until time `T`.
+ *
+ * ![poissP](out/poissP.png)
+ * @example var poissP = stoch.poissP(1, 100, true);
+ * @param {number} lambda (rate)
+ * @param {number} T time as positive number
+ * @param {boolean} [path=true]
+ * @returns {number[]} times of each arrival in a Poisson Process
+ */
+export function poissP(
+  lambda = 0/*: number */,
+  T = 0/*: number */,
+  path = true/*: boolean */) /*: Array&lt;number&gt; */ {
+  let U, exp, N_t, t, n;
+  N_t = [0];
+  t = 0;
+  n = 0;
+
+  if (T &lt;= 0 || lambda &lt;= 0) {
+    return N_t;
+  }
+
+  while (t &lt; T) {
+    U = Math.random();
+    exp = -Math.log(U) / lambda;
+    t += exp;
+    if (t &lt; T) {
+      n += 1;
+      N_t.push(t);
+    }
+  }
+
+  if (path === false) {
+    return [n];
+  } else {
+    return N_t;
+  }
+}
+
+/**
+ * Returns an array with `num` normal random variables in a [normal distribution](http://en.wikipedia.org/wiki/Normal_distribution) of mean `mu` and standard deviation `sigma`.
+ *
+ * ![norm](out/norm.png)
+ * @example var norm = stoch.norm(1, 1, 100);
+ * @param {number} mu the mean or expectation of the distribution (and also its median and mode)
+ * @param {number} sigma standard deviation as positive number
+ * @param {number} [num=1] a positive integer
+ * @returns {number[]} normal random values
+ */
+export const norm = (mu = 1/*: number */, sigma = 0/*: number */, num = 0/*: number */)/*: Array&lt;number&gt; */ =&gt;  {
+  let U1, U2, x, y, z1, z2;
+  let sample = [];
+
+  if (num &lt;= 0 || sigma &lt;= 0) {
+    return sample;
+  }
+
+  function boxMuller(mu, sigma) {
+    U1 = Math.random();
+    U2 = Math.random();
+    z1 = Math.sqrt(-2 * Math.log(U1)) * Math.cos(2 * U2 * Math.PI);
+    z2 = Math.sqrt(-2 * Math.log(U1)) * Math.sin(2 * U2 * Math.PI);
+    x = mu + (sigma * z1);
+    y = mu + (sigma * z2);
+    return [x, y];
+  }
+
+  if (typeof num === &#039;undefined&#039; || num === 1 || (num % 1) !== 0) {
+      return [boxMuller(mu, sigma)[0]];
+  }
+
+  if (num / 2 % 2 !== 0) sample.push(boxMuller(mu, sigma)[0]);
+  for (let i = 0; i &lt; Math.floor(num / 2); i++) {
+    sample = sample.concat(boxMuller(mu, sigma));
+  }
+  return sample;
+};
+
+/**
+ * Returns an array corresponding to the path of [Brownian motion](http://en.wikipedia.org/wiki/Wiener_process#Related_processes) from time 0 to `T` with drift parameter `mu` and volatility parameter `sigma` (the process is initialized to be 0). The i-th entry in the array corresponds to the Brownian process at time `i * (T / steps)`.
+ *
+ * ![brown](out/brown.png)
+ * @example var brown = stoch.brown(1.0, -0.1, +0.1, 100, true);
+ * @param {number} mu drift parameter (a real number)
+ * @param {number} sigma volatility parameter (strictly positive real)
+ * @param {number} T time (strictly positive real)
+ * @param {number} steps (positive integer)
+ * @param {boolean} [path=true]
+ * @return {number[]} Brownian motion path
+ */
+export const brown = (
+  mu/*: number */,
+  sigma/*: number */,
+  T/*: number */,
+  steps/*: number */,
+  path/*: boolean */)/*: Array&lt;number&gt; */ =&gt; {
+  const B_t = [0];
+  let B = 0;
+  const dt = T / steps;
+  let dB;
+
+  if (!(T &gt; 0) || !(steps &gt; 0)) {
+    return B_t;
+  }
+
+  if (path === false) {
+      return [((mu * T) + (sigma * norm(0, Math.sqrt(T), 1)[0]))];
+  }
+  else {
+    for (let i = 0; i &lt; steps; i++) {
+        dB = (mu * dt) + (sigma * norm(0, Math.sqrt(dt), 1)[0]);
+      B += dB;
+      B_t.push(B);
+    }
+    return B_t;
+  }
+};
+
+/**
+ * Returns an array corresponding to the path of [geometric Brownian motion](http://en.wikipedia.org/wiki/Geometric_Brownian_motion) from time 0 to `T` with drift parameter `mu` and volatility parameter `sigma` (the process is initialized to be S0). The i-th entry in the array corresponds to the geometric Brownian process at time `i * (T/steps)`.
+ *
+ * ![GBM](out/GBM.png)
+ * @example var GBM = stoch.GBM(1.0, -0.1, 0.1, 1.0, 100, true);
+ * @param {number} S0 initialized process value
+ * @param {number} mu drift parameter
+ * @param {number} sigma volatility parameter (strictly positive real)
+ * @param {number} T time (strictly positive real)
+ * @param {number} steps (positive integer)
+ * @param {boolean} [path=true]
+ * @returns {number[]} geometric Brownian motion
+ */
+export function GBM(
+  S0/*: number */,
+  mu/*:number */,
+  sigma/*: number */,
+  T/*: number */,
+  steps/*: number */,
+  path/*: boolean */) /*: Array&lt;number&gt; */ {
+  const S_t = [];
+    let B_t = [0];
+
+  if (!(T &gt; 0) || !(steps &gt; 0)) {
+    return B_t;
+  }
+
+  if (path === false) {
+      return [S0 * Math.exp((mu - (sigma * sigma / 2)) * T + (sigma * norm(0, Math.sqrt(T), 1)[0]))];
+  } else {
+      B_t = brown((mu - (sigma * sigma / 2)), sigma, T, steps, true);
+    B_t.forEach(B =&gt; {
+      S_t.push(S0 * Math.exp(B));
+    });
+    return S_t;
+  }
+}
+
+const isValid = matrix =&gt; {
+  const n = matrix.length;
+  for (let i = 0; i &lt; n; i++) {
+    let sum = 0;
+    if (matrix[i].length !== n) {
+      return false;
+    }
+    for (let j = 0; j &lt; n; j++) {
+      if (matrix[i][j] &gt; 1 || matrix[i][j] &lt; 0) {
+        return false;
+      }
+      sum += matrix[i][j];
+    }
+    const eps = (4 * Math.pow(10, -16));
+    if (sum &lt; 1 - eps || sum &gt; 1 + eps) {
+      return false;
+    }
+  }
+  return true;
+};
+
+/**
+ * Returns an array with the states at each step of the [discrete-time Markov Chain](http://en.wikipedia.org/wiki/Markov_chain) given by `transMatrix` (a square matrix). The number of transitions is given by `steps`. The initial state is given by start (the states are indexed from 0 to n-1 where n is the number of arrays in transMatrix).
+ *
+ * ![DTMC](out/DTMC.png)
+ * @example var DTMC = stoch.DTMC([[0,1,0],[0,0,1],[1,0,0]], 20, 0, true);
+ * @param {Array&lt;Array&lt;number&gt;&gt;} transMatrix
+ * @param {number} steps (positive integer)
+ * @param {number} start
+ * @param {boolean} path
+ * @returns {number[]}
+ */
+export function DTMC(
+  transMatrix/*: Array&lt;Array&lt;number&gt;&gt; */,
+  steps/*: number */,
+  start/*: number */,
+  path/*: boolean */) /*: Array&lt;number&gt; */ {
+  //function to check if input is a valid transition matrix
+
+  //return null if the transition matrix is not valid
+  if (!isValid(transMatrix)) {
+    throw new Error(&quot;Invalid transMatrix&quot;);
+  }
+
+  //initialize the Markov Chain
+  const init = parseInt(start, 10);
+  const fullPath = [];
+  fullPath.push(init);
+  let stateRow = transMatrix[init];
+  let U;
+
+  for (let i = 0; i &lt; steps; i++) {
+    U = Math.random();
+    let sum = 0;
+    for (let j = 0; j &lt; stateRow.length; j++) {
+      sum += stateRow[j];
+      if (sum &gt; U) {
+        fullPath.push(j);
+        stateRow = transMatrix[j];
+        j = stateRow.length;
+      }
+    }
+  }
+  if (path === false) {
+    return fullPath[fullPath.length - 1];
+  }
+  else {
+    return fullPath;
+  }
+}
+
+/**
+ * Returns the `transMatrix` for an array of mapped `states` to numerical values.
+ *
+ * @example var collate = stoch.collate([0,1,0,0,0,1,1,0,0]);
+ * @param {number[]} states
+ * @returns {Array&lt;Array&lt;number&gt;&gt;} transMatrix
+ */
+export function collate(
+  states/*: Array&lt;number&gt; */) {
+  // TODO: Allow for arbitrary string values let uniques = [], lookup = {};
+  var max = Math.max(...states) + 1;
+  const row = Array(max).fill(0);
+  let transMatrix = []; // Array(max).fill(row.slice());
+  for (let i = 0; i &lt; row.length; i++) {
+    transMatrix.push(row.slice());
+  }
+
+  let result = states
+        .reduce((p, c) =&gt; {
+          p.transMatrix[p.previous][c]++;
+          p.previous = c;
+          return p;
+        }, {
+          transMatrix: transMatrix,
+          previous: 0
+        });
+  const weighted = result
+          .transMatrix
+          .map((e, i, c) =&gt; {
+            let sum = e.reduce((p, c) =&gt; {
+              return p + c;
+            }, 0);
+            return e.map((e, i, c) =&gt; {
+              return e / sum;
+            });
+          });
+  // TODO: percentages
+  // console.log(result.transMatrix);
+  return weighted;
+}
+
+/**
+ * Returns an object with the {key:value} pair {time:state} at each step of the [continuous-time Markov Chain](http://en.wikipedia.org/wiki/Continuous-time_Markov_chain) given by transMatrix (a square matrix). The Markov Chain is simulated until time `T`. The initial state is given by `start` (the states are indexed from 0 to n-1 where n is the number of arrays in `transMatrix`).
+ *
+ * ![CTMC](out/CTMC.png)
+ * @example var CTMC = stoch.CTMC([[0,1,0],[0,0,1],[1,0,0]], 20, 0, true);
+ * @param {Array&lt;Array&lt;number&gt;&gt;} transMatrix
+ * @param {number} T
+ * @param {number} start
+ * @param {boolean} [path=true]
+ * @returns {Object} Continuous-time Markov chain
+ */
+export function CTMC(
+  transMatrix/*: Array&lt;Array&lt;number&gt;&gt; */,
+  T/*: number */,
+  start/*: number */,
+  path/*: boolean */) /*: {[ts:string]: number} */ {
+  // function to determine if input is a valid CTMC transition matrix
+
+  //return null if the transition matrix is not valid
+  if (!isValid(transMatrix)) {
+    throw new Error(&quot;Invalid transMatrix&quot;);
+  }
+
+  // initialize simulation of the CTMC
+  const fullPath = { &quot;0&quot;: start };
+  let lastState = start;
+  let stateRow = transMatrix[start];
+  let t = 0;
+  let U, exp, sum;
+
+  // begin simulation
+  while (t &lt; T) {
+    let lambda = 0;
+    for (let i = 0; i &lt; stateRow.length; i++) {
+      lambda += stateRow[i];
+    }
+    U = Math.random();
+    exp = -Math.log(U) / lambda; //exp is the time to make the transition
+    t += exp;
+
+    if (t &gt; T) {
+      if (path === false) {
+        return {t: lastState};
+      }
+      else {
+        return fullPath;
+      }
+    }
+
+    sum = 0;
+    U = Math.random();
+    for (let j = 0; j &lt; stateRow.length; j++) {
+      sum += stateRow[j] / lambda;
+      if (sum &gt; U) {
+        stateRow = transMatrix[j];
+        fullPath[t] = j;
+        lastState = j;
+        j = stateRow.length;
+      }
+    }
+  }
+  return fullPath;
+}
+
+/**
+ * Generates a random sample (with replacement) from array `arr` of observations. Number of observations `n` is specified by the user.
+ * @example var sample = stoch.sample([1,2,3,4,5], +10);
+ * @param {number[]} arr
+ * @param {number} n (positive integer)
+ * @returns {number[]} random sample
+ */
+export function sample(arr/*: number[] */, n/*: number */) /*: Array&lt;number&gt; */ {
+  const samp = [];
+  for (let i = 0; i &lt; n; i++) {
+    const index = Math.floor(Math.random() * arr.length);
+    const value = arr[index];
+    samp.push(value);
+  }
+  return samp;
+}
+
+/**
+ * Generates an exponential random variable with rate parameter `lambda`.
+ * @example var exp = stoch.exp(20);
+ * @param {number} lambda (positive)
+ * @returns {number} variable
+ */
+export function exp(lambda = 1/*: number */) /*: number */ {
+  return -Math.log(Math.random()) / lambda;
+}
+
+/**
+ * Generates a Pareto random variables with parameters `x_m` and `alpha`.
+ * @example var pareto = stoch.pareto(+20.0, -1.0);
+ * @param {number} x_a (positive)
+ * @param {number} alpha
+ * @returns {number} distribution
+ */
+export function pareto(x_m/*: number */, alpha/*: number */) /*: number */ {
+  return x_m / Math.pow(Math.random(), 1 / alpha);
+}
+
+/**
+ * Generates a histogram object from an array of data. Keys denote the lower bound of each bin and the values indicate the frequency of data in each bin.
+ *
+ * ![hist](out/hist.png)
+ * @example var hist = stoch.hist([1,1,1,1,2,3,3,4,4,4]);
+ * @param {Array&lt;number&gt;} arr
+ * @returns {Object} histogram
+ */
+export function hist(arr/*: Array&lt;number&gt; */) {
+  const newArr = arr.slice().sort((a, b) =&gt; a - b);
+
+  const max = newArr[arr.length - 1];
+  const min = newArr[0];
+  const bins = Math.round(Math.sqrt(arr.length));
+  const binSize = (max - min) / bins;
+
+  const obj = {};
+  const keys = [];
+  for (let i = 0; i &lt; bins; i++) {
+    const key = min + (i * binSize);
+    keys.push(key);
+    obj[key] = 0;
+  }
+
+  for (let j = 0; j &lt; arr.length; j++) {
+    let val = min;
+    let temp_key = 0;
+    let cont = true;
+    while (cont) {
+      if (newArr[j] === newArr[newArr.length - 1]) {
+        obj[keys[keys.length - 1]] += 1;
+        cont = false;
+        break;
+      }
+      else if (newArr[j] &lt; val + binSize) {
+        obj[keys[temp_key]] += 1;
+        cont = false;
+        break;
+      }
+      else {
+        temp_key += 1;
+        val += binSize;
+      }
+    }
+  }
+
+  return obj;
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ cyclomatic }} <br>
+    Length : {{ halstead.length }} <br>
+    Difficulty : {{ halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>
