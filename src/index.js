@@ -80,6 +80,7 @@ export function std(values /*: Array<number> */) {
 /**
  * Returns a mock data set that uses the same standard deviation and average.
  *
+ * ![norm](out/mock.png)
  * @example var mock = stoch.mock(stoch.norm(100, 10, 100));
  * @param {number[]} values
  * @returns {number} standard deviation as positive number
