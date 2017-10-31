@@ -48,7 +48,7 @@ Returns an array with the times of each arrival in a [Poisson Process](http://en
 **Examples**
 
 ```javascript
-var poissP = stoch.poissP(1, 100, true);
+const poissP = stoch.poissP(1, 100, true);
 ```
 
 Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** times of each arrival in a Poisson Process
@@ -65,7 +65,7 @@ Returns the average.
 **Examples**
 
 ```javascript
-var avg = stoch.average([1, 2, 3]);
+const avg = stoch.average([1, 2, 3]);
 ```
 
 Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** standard deviation as positive number
@@ -81,7 +81,7 @@ Returns the standard deviation.
 **Examples**
 
 ```javascript
-var std = stoch.std([2, 3, 4, 4, 4, 5, 6]);
+const std = stoch.std([2, 3, 4, 4, 4, 5, 6]);
 ```
 
 Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** standard deviation as positive number
@@ -99,7 +99,7 @@ Returns a mock data set that uses the same standard deviation and average.
 **Examples**
 
 ```javascript
-var mock = stoch.mock(stoch.norm(100, 10, 100));
+const mock = stoch.mock(stoch.norm(1, 1, 100));
 ```
 
 Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** standard deviation as positive number
@@ -119,7 +119,7 @@ Returns an array with `num` normal random variables in a [normal distribution](h
 **Examples**
 
 ```javascript
-var norm = stoch.norm(1, 1, 100);
+const norm = stoch.norm(1, 1, 100);
 ```
 
 Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** normal random values
@@ -141,7 +141,7 @@ Returns an array corresponding to the path of [Brownian motion](http://en.wikipe
 **Examples**
 
 ```javascript
-var brown = stoch.brown(1.0, -0.1, +0.1, 100, true);
+const brown = stoch.brown(1.0, -0.1, +0.1, 100, true);
 ```
 
 Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** Brownian motion path
@@ -164,7 +164,7 @@ Returns an array corresponding to the path of [geometric Brownian motion](http:/
 **Examples**
 
 ```javascript
-var GBM = stoch.GBM(1.0, -0.1, 0.1, 1.0, 100, true);
+const GBM = stoch.GBM(1.0, -0.1, 0.1, 1.0, 100, true);
 ```
 
 Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** geometric Brownian motion
@@ -185,7 +185,7 @@ Returns an array with the states at each step of the [discrete-time Markov Chain
 **Examples**
 
 ```javascript
-var DTMC = stoch.DTMC([[0,1,0],[0,0,1],[1,0,0]], 20, 0, true);
+const DTMC = stoch.DTMC([[0,1,0],[0,0,1],[1,0,0]], 20, 0, true);
 ```
 
 Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** 
@@ -201,7 +201,7 @@ Returns the `transMatrix` for an array of mapped `states` to numerical values.
 **Examples**
 
 ```javascript
-var collate = stoch.collate([0,1,0,0,0,1,1,0,0]);
+const collate = stoch.collate([0,1,0,0,0,1,1,0,0]);
 ```
 
 Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>>** transMatrix
@@ -222,7 +222,7 @@ Returns an object with the {key:value} pair {time:state} at each step of the [co
 **Examples**
 
 ```javascript
-var CTMC = stoch.CTMC([[0,1,0],[0,0,1],[1,0,0]], 20, 0, true);
+const CTMC = stoch.CTMC([[0,1,0],[0,0,1],[1,0,0]], 20, 0, true);
 ```
 
 Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Continuous-time Markov chain
@@ -239,7 +239,7 @@ Generates a random sample (with replacement) from array `arr` of observations. N
 **Examples**
 
 ```javascript
-var sample = stoch.sample([1,2,3,4,5], +10);
+const sample = stoch.sample([1,2,3,4,5], +10);
 ```
 
 Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** random sample
@@ -255,7 +255,7 @@ Generates an exponential random variable with rate parameter `lambda`.
 **Examples**
 
 ```javascript
-var exp = stoch.exp(20);
+const exp = stoch.exp(20);
 ```
 
 Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** variable
@@ -273,7 +273,7 @@ Generates a Pareto random variables with parameters `x_m` and `alpha`.
 **Examples**
 
 ```javascript
-var pareto = stoch.pareto(+20.0, -1.0);
+const pareto = stoch.pareto(+20.0, -1.0);
 ```
 
 Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** distribution
@@ -292,7 +292,7 @@ Generates a histogram object from an array of data. Keys denote the lower bound 
 **Examples**
 
 ```javascript
-var hist = stoch.hist([1,1,1,1,2,3,3,4,4,4]);
+const hist = stoch.hist([1,1,1,1,2,3,3,4,4,4]);
 ```
 
 Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** histogram
