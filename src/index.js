@@ -4,7 +4,7 @@
  * Returns an array with the times of each arrival in a [Poisson Process](http://en.wikipedia.org/wiki/Poisson_process) with rate `lambda` until time `T`.
  *
  * ![poissP](out/poissP.png)
- * @example var poissP = stoch.poissP(1, 100, true);
+ * @example const poissP = stoch.poissP(1, 100, true);
  * @param {number} lambda (rate)
  * @param {number} T time as positive number
  * @param {boolean} [path=true]
@@ -43,7 +43,7 @@ export function poissP(
 /**
  * Returns the average.
  *
- * @example var avg = stoch.average([1, 2, 3]);
+ * @example const avg = stoch.average([1, 2, 3]);
  * @param {number[]} values
  * @returns {number} standard deviation as positive number
  */
@@ -59,7 +59,7 @@ export function average(data /*: Array<number> */) {
 /**
  * Returns the standard deviation.
  *
- * @example var std = stoch.std([2, 3, 4, 4, 4, 5, 6]);
+ * @example const std = stoch.std([2, 3, 4, 4, 4, 5, 6]);
  * @param {number[]} values
  * @returns {number} standard deviation as positive number
  */
@@ -81,7 +81,7 @@ export function std(values /*: Array<number> */) {
  * Returns a mock data set that uses the same standard deviation and average.
  *
  * ![norm](out/mock.png)
- * @example var mock = stoch.mock(stoch.norm(100, 10, 100));
+ * @example const mock = stoch.mock(stoch.norm(1, 1, 100));
  * @param {number[]} values
  * @returns {number} standard deviation as positive number
  */
@@ -94,7 +94,7 @@ export function mock(values /*: Array<number> */) {
  * Returns an array with `num` normal random variables in a [normal distribution](http://en.wikipedia.org/wiki/Normal_distribution) of mean `mu` and standard deviation `sigma`.
  *
  * ![norm](out/norm.png)
- * @example var norm = stoch.norm(1, 1, 100);
+ * @example const norm = stoch.norm(1, 1, 100);
  * @param {number} mu the mean or expectation of the distribution (and also its median and mode)
  * @param {number} sigma standard deviation as positive number
  * @param {number} [num=1] a positive integer
@@ -133,7 +133,7 @@ export const norm = (mu = 1/*: number */, sigma = 0/*: number */, num = 1/*: num
  * Returns an array corresponding to the path of [Brownian motion](http://en.wikipedia.org/wiki/Wiener_process#Related_processes) from time 0 to `T` with drift parameter `mu` and volatility parameter `sigma` (the process is initialized to be 0). The i-th entry in the array corresponds to the Brownian process at time `i * (T / steps)`.
  *
  * ![brown](out/brown.png)
- * @example var brown = stoch.brown(1.0, -0.1, +0.1, 100, true);
+ * @example const brown = stoch.brown(1.0, -0.1, +0.1, 100, true);
  * @param {number} mu drift parameter (a real number)
  * @param {number} sigma volatility parameter (strictly positive real)
  * @param {number} T time (strictly positive real)
@@ -173,7 +173,7 @@ export const brown = (
  * Returns an array corresponding to the path of [geometric Brownian motion](http://en.wikipedia.org/wiki/Geometric_Brownian_motion) from time 0 to `T` with drift parameter `mu` and volatility parameter `sigma` (the process is initialized to be S0). The i-th entry in the array corresponds to the geometric Brownian process at time `i * (T/steps)`.
  *
  * ![GBM](out/GBM.png)
- * @example var GBM = stoch.GBM(1.0, -0.1, 0.1, 1.0, 100, true);
+ * @example const GBM = stoch.GBM(1.0, -0.1, 0.1, 1.0, 100, true);
  * @param {number} S0 initialized process value
  * @param {number} mu drift parameter
  * @param {number} sigma volatility parameter (strictly positive real)
@@ -232,7 +232,7 @@ const isValid = matrix => {
  * Returns an array with the states at each step of the [discrete-time Markov Chain](http://en.wikipedia.org/wiki/Markov_chain) given by `transMatrix` (a square matrix). The number of transitions is given by `steps`. The initial state is given by start (the states are indexed from 0 to n-1 where n is the number of arrays in transMatrix).
  *
  * ![DTMC](out/DTMC.png)
- * @example var DTMC = stoch.DTMC([[0,1,0],[0,0,1],[1,0,0]], 20, 0, true);
+ * @example const DTMC = stoch.DTMC([[0,1,0],[0,0,1],[1,0,0]], 20, 0, true);
  * @param {Array<Array<number>>} transMatrix
  * @param {number} steps (positive integer)
  * @param {number} start
@@ -281,7 +281,7 @@ export function DTMC(
 /**
  * Returns the `transMatrix` for an array of mapped `states` to numerical values.
  *
- * @example var collate = stoch.collate([0,1,0,0,0,1,1,0,0]);
+ * @example const collate = stoch.collate([0,1,0,0,0,1,1,0,0]);
  * @param {number[]} states
  * @returns {Array<Array<number>>} transMatrix
  */
@@ -323,7 +323,7 @@ export function collate(
  * Returns an object with the {key:value} pair {time:state} at each step of the [continuous-time Markov Chain](http://en.wikipedia.org/wiki/Continuous-time_Markov_chain) given by transMatrix (a square matrix). The Markov Chain is simulated until time `T`. The initial state is given by `start` (the states are indexed from 0 to n-1 where n is the number of arrays in `transMatrix`).
  *
  * ![CTMC](out/CTMC.png)
- * @example var CTMC = stoch.CTMC([[0,1,0],[0,0,1],[1,0,0]], 20, 0, true);
+ * @example const CTMC = stoch.CTMC([[0,1,0],[0,0,1],[1,0,0]], 20, 0, true);
  * @param {Array<Array<number>>} transMatrix
  * @param {number} T
  * @param {number} start
@@ -385,7 +385,7 @@ export function CTMC(
 
 /**
  * Generates a random sample (with replacement) from array `arr` of observations. Number of observations `n` is specified by the user.
- * @example var sample = stoch.sample([1,2,3,4,5], +10);
+ * @example const sample = stoch.sample([1,2,3,4,5], +10);
  * @param {number[]} arr
  * @param {number} n (positive integer)
  * @returns {number[]} random sample
@@ -402,7 +402,7 @@ export function sample(arr/*: number[] */, n/*: number */) /*: Array<number> */ 
 
 /**
  * Generates an exponential random variable with rate parameter `lambda`.
- * @example var exp = stoch.exp(20);
+ * @example const exp = stoch.exp(20);
  * @param {number} lambda (positive)
  * @returns {number} variable
  */
@@ -412,7 +412,7 @@ export function exp(lambda = 1/*: number */) /*: number */ {
 
 /**
  * Generates a Pareto random variables with parameters `x_m` and `alpha`.
- * @example var pareto = stoch.pareto(+20.0, -1.0);
+ * @example const pareto = stoch.pareto(+20.0, -1.0);
  * @param {number} x_a (positive)
  * @param {number} alpha
  * @returns {number} distribution
@@ -425,7 +425,7 @@ export function pareto(x_m/*: number */, alpha/*: number */) /*: number */ {
  * Generates a histogram object from an array of data. Keys denote the lower bound of each bin and the values indicate the frequency of data in each bin.
  *
  * ![hist](out/hist.png)
- * @example var hist = stoch.hist([1,1,1,1,2,3,3,4,4,4]);
+ * @example const hist = stoch.hist([1,1,1,1,2,3,3,4,4,4]);
  * @param {Array<number>} arr
  * @returns {Object} histogram
  */
