@@ -41,6 +41,55 @@ export function poissP(
 }
 
 /**
+ * Returns the average.
+ *
+ * @example var avg = stoch.average([1, 2, 3]);
+ * @param {number[]} values
+ * @returns {number} standard deviation as positive number
+ */
+export function average(data /*: Array<number> */) {
+  let sum = data
+      .reduce((curr, acc) => {
+        return acc + curr;
+      }, 0);
+  return sum / data.length;
+};
+
+
+/**
+ * Returns the standard deviation.
+ *
+ * @example var std = stoch.std([2, 3, 4, 4, 4, 5, 6]);
+ * @param {number[]} values
+ * @returns {number} standard deviation as positive number
+ */
+export function std(values /*: Array<number> */) {
+  const avg = average(values);
+
+  const squareDiffs = values.map(function(value){
+    var diff = value - avg;
+    var sqrDiff = diff * diff;
+    return sqrDiff;
+  });
+
+  const avgSquareDiff = average(squareDiffs);
+
+  return Math.sqrt(avgSquareDiff);
+};
+
+/**
+ * Returns a mock data set that uses the same standard deviation and average.
+ *
+ * @example var mock = stoch.mock(stoch.norm(100, 10, 100));
+ * @param {number[]} values
+ * @returns {number} standard deviation as positive number
+ */
+export function mock(values /*: Array<number> */) {
+  return norm(average(values), std(values), values.length);
+};
+
+
+/**
  * Returns an array with `num` normal random variables in a [normal distribution](http://en.wikipedia.org/wiki/Normal_distribution) of mean `mu` and standard deviation `sigma`.
  *
  * ![norm](out/norm.png)
@@ -50,11 +99,11 @@ export function poissP(
  * @param {number} [num=1] a positive integer
  * @returns {number[]} normal random values
  */
-export const norm = (mu = 1/*: number */, sigma = 0/*: number */, num = 0/*: number */)/*: Array<number> */ =>  {
+export const norm = (mu = 1/*: number */, sigma = 0/*: number */, num = 1/*: number */)/*: Array<number> */ =>  {
   let U1, U2, x, y, z1, z2;
   let sample = [];
 
-  if (num <= 0 || sigma <= 0) {
+  if (sigma <= 0) {
     return sample;
   }
 
@@ -379,13 +428,13 @@ export function pareto(x_m/*: number */, alpha/*: number */) /*: number */ {
  * @param {Array<number>} arr
  * @returns {Object} histogram
  */
-export function hist(arr/*: Array<number> */) {
+export function hist(arr/*: Array<number> */, n/*: number */) {
   const newArr = arr.slice().sort((a, b) => a - b);
 
   const max = newArr[arr.length - 1];
   const min = newArr[0];
   const bins = Math.round(Math.sqrt(arr.length));
-  const binSize = (max - min) / bins;
+  const binSize = n || (max - min) / bins;
 
   const obj = {};
   const keys = [];

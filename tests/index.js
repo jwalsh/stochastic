@@ -52,6 +52,11 @@ console.log('exponential random variable?', spec.positive(stoch.exp()), spec.pos
 
 const hist = stoch.hist([1,2,3,4,3,3,3,7,4,2,2,3,2,3,1,3,4,4,3,3]);
 
+const average = stoch.average([2, 3, 4, 4, 4, 5, 6]);
+const std = stoch.std([2, 3, 4, 4, 4, 5, 6]);
+const mock = stoch.mock([2, 3, 4, 4, 4, 5, 6]);
+console.log('mock', mock);
+
 // const bucket = spec.map('bucket', {
 //   spec.string: spec.number
 // });
