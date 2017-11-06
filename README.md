@@ -49,8 +49,8 @@ Returns an array with the times of each arrival in a [Poisson Process](http://en
 
 ![poissP](out/poissP.png)
 
-/Exercise/: Assuming you get 10 emails per hour over the course of an 8 hour day;
-what's the distribution of the number of emails you receive each day
+_Exercise_: Assuming you get 10 emails per hour over the course of an 8 hour day,
+what's the distribution of the number of emails you receive
 over the course of a standard 261 work-day year
 
 ![poissP-emails](out/poissP-emails.png)
@@ -68,7 +68,7 @@ const poissP = stoch.poissP(1, 100, true);
 ```
 
 ```javascript
-const emails = stoch.hist(Array(261).fill(null).map(e => stoch.poissP(10, 8, true).length));
+const emails = stoch.hist(Array(261).fill().map(e => stoch.poissP(10, 8, true).length));
 ```
 
 Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** times of each arrival in a Poisson Process

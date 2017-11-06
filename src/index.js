@@ -5,14 +5,14 @@
  *
  * ![poissP](out/poissP.png)
  *
- * /Exercise/: Assuming you get 10 emails per hour over the course of an 8 hour day;
- * what's the distribution of the number of emails you receive each day
+ * *Exercise*: Assuming you get 10 emails per hour over the course of an 8 hour day,
+ * what's the distribution of the number of emails you receive
  * over the course of a standard 261 work-day year
  *
  * ![poissP-emails](out/poissP-emails.png)
  *
  * @example const poissP = stoch.poissP(1, 100, true);
- * @example const emails = stoch.hist(Array(261).fill(null).map(e => stoch.poissP(10, 8, true).length));
+ * @example const emails = stoch.hist(Array(261).fill().map(e => stoch.poissP(10, 8, true).length));
  * @param {number} lambda (rate)
  * @param {number} T time as positive number
  * @param {boolean} [path=true]

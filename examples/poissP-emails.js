@@ -21,7 +21,7 @@ const emails = Array
 console.log(emails);
 
 const hist = stoch.hist(emails);
-// const hist = stoch.hist(Array(261).fill(null).map(e => stoch.poissP(10, 8, true).length));
+// const hist = stoch.hist(Array(261).fill().map(e => stoch.poissP(10, 8, true).length));
 console.log(hist);
 
 // const data = Object.keys(hist).map((e, i, c) => { return hist[e]; });
