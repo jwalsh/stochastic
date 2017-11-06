@@ -4,6 +4,9 @@
  * Returns an array with the times of each arrival in a [Poisson Process](http://en.wikipedia.org/wiki/Poisson_process) with rate `lambda` until time `T`.
  *
  * ![poissP](out/poissP.png)
+ * Example: 10 emails per hour during an 8 hour workday; what's the
+ * distribution over the course of a standard 261 work-day year?
+ * ![poissP-emails](out/poissP-emails.png)
  * @example const poissP = stoch.poissP(1, 100, true);
  * @param {number} lambda (rate)
  * @param {number} T time as positive number
@@ -23,6 +26,7 @@ export function poissP(
     return N_t;
   }
 
+  // https://www.probabilitycourse.com/chapter11/11_1_2_basic_concepts_of_the_poisson_process.php
   while (t < T) {
     U = Math.random();
     exp = -Math.log(U) / lambda;
