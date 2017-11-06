@@ -46,10 +46,12 @@ var norm = stoch.norm(1, 1, 100);
 ### poissP
 
 Returns an array with the times of each arrival in a [Poisson Process](http://en.wikipedia.org/wiki/Poisson_process) with rate `lambda` until time `T`.
+
 ![poissP](out/poissP.png)
 
 Example: 10 emails per hour during an 8 hour workday; what's the
 distribution over the course of a standard 261 work-day year?
+
 ![poissP-emails](out/poissP-emails.png)
 
 **Parameters**
