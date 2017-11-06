@@ -49,8 +49,9 @@ Returns an array with the times of each arrival in a [Poisson Process](http://en
 
 ![poissP](out/poissP.png)
 
-_Exercise_: 10 emails per hour during an 8 hour workday; what's the
-distribution over the course of a standard 261 work-day year?
+/Exercise/: Assuming you get 10 emails per hour over the course of an 8 hour day;
+what's the distribution of the number of emails you receive each day
+over the course of a standard 261 work-day year
 
 ![poissP-emails](out/poissP-emails.png)
 
