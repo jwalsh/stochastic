@@ -30,6 +30,8 @@ plot({
   data:		{ 'line' : hist },
   style: 'boxes',
   boxwidth: '1',
+  pretty: true,
+  title: `${(new Date()).getFullYear()} Emails`,
   filename:   'out/poissP-emails.png',
   xlabel:     'emails / workday',
   ylabel:     'days / year',
