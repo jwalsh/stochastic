@@ -3,6 +3,10 @@ import * as stoch from '../lib/index';
 
 import _ from 'lodash';
 import { spec, valid, explain, conform } from 'js.spec';
+
+const { check, gen, property, sample, sampleOne } = require('testcheck');
+
+
 // spec interface
 // { cat: [Function: m],
 //   alt: [Function: g],
@@ -54,8 +58,11 @@ const hist = stoch.hist([1,2,3,4,3,3,3,7,4,2,2,3,2,3,1,3,4,4,3,3]);
 
 const average = stoch.average([2, 3, 4, 4, 4, 5, 6]);
 const std = stoch.std([2, 3, 4, 4, 4, 5, 6]);
-const mock = stoch.mock([2, 3, 4, 4, 4, 5, 6]);
+const mock = stoch.mock([2, 3, 4, 4, 4, 5, 6], 10);
 console.log('mock', mock);
+
+
+
 
 // const bucket = spec.map('bucket', {
 //   spec.string: spec.number
@@ -81,3 +88,18 @@ Object.keys(hist)
     // Buckets
     console.log('bucket entry?', valid(bucketLabel, e), valid(bucketCount, hist[e]));
   });
+
+
+let g = gen.array(gen.int);
+console.log('testcheck', g, gen.int);
+
+const result = check(
+  property(
+    // the arguments generator
+    gen.int,
+    // the property function to test
+    x => x - x === 0
+  ),
+  { numTests: 1000 }
+)
+console.log(result);

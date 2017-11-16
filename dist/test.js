@@ -14,6 +14,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
+var _require = require('testcheck'),
+    check = _require.check,
+    gen = _require.gen,
+    property = _require.property,
+    sample = _require.sample,
+    sampleOne = _require.sampleOne;
+
 // spec interface
 // { cat: [Function: m],
 //   alt: [Function: g],
@@ -48,8 +55,10 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 //   zero: [Function: g] }
 
 
-console.log(stoch); // import * as stoch from '../src/index';
+// import * as stoch from '../src/index';
 
+
+console.log(stoch);
 
 var normal = _js.spec.set;
 
@@ -66,7 +75,7 @@ var hist = stoch.hist([1, 2, 3, 4, 3, 3, 3, 7, 4, 2, 2, 3, 2, 3, 1, 3, 4, 4, 3, 
 
 var average = stoch.average([2, 3, 4, 4, 4, 5, 6]);
 var std = stoch.std([2, 3, 4, 4, 4, 5, 6]);
-var mock = stoch.mock([2, 3, 4, 4, 4, 5, 6]);
+var mock = stoch.mock([2, 3, 4, 4, 4, 5, 6], 10);
 console.log('mock', mock);
 
 // const bucket = spec.map('bucket', {
@@ -84,4 +93,16 @@ Object.keys(hist).sort().map(function (e) {
   // Buckets
   console.log('bucket entry?', (0, _js.valid)(bucketLabel, e), (0, _js.valid)(bucketCount, hist[e]));
 });
+
+var g = gen.array(gen.int);
+console.log('testcheck', g, gen.int);
+
+var result = check(property(
+// the arguments generator
+gen.int,
+// the property function to test
+function (x) {
+  return x - x === 0;
+}), { numTests: 1000 });
+console.log(result);
 

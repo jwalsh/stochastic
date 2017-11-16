@@ -62,7 +62,7 @@ export function average(data /*: Array<number> */) {
         return acc + curr;
       }, 0);
   return sum / data.length;
-};
+}
 
 
 /**
@@ -84,7 +84,7 @@ export function std(values /*: Array<number> */) {
   const avgSquareDiff = average(squareDiffs);
 
   return Math.sqrt(avgSquareDiff);
-};
+}
 
 /**
  * Returns a mock data set that uses the same standard deviation and average.
@@ -92,11 +92,14 @@ export function std(values /*: Array<number> */) {
  * ![norm](out/mock.png)
  * @example const mock = stoch.mock(stoch.norm(1, 1, 100));
  * @param {number[]} values
+ * @param {number} [num=1] a positive integer
  * @returns {number} standard deviation as positive number
  */
-export function mock(values /*: Array<number> */) {
-  return norm(average(values), std(values), values.length);
-};
+export function mock(values /*: Array<number> */, num/*: number */) {
+  return norm(average(values),
+              std(values),
+              num || values.length);
+}
 
 
 /**
@@ -315,11 +318,11 @@ export function collate(
         });
   const weighted = result
           .transMatrix
-          .map((e, i, c) => {
+          .map(e => {
             let sum = e.reduce((p, c) => {
               return p + c;
             }, 0);
-            return e.map((e, i, c) => {
+            return e.map(e => {
               return e / sum;
             });
           });

@@ -115,6 +115,7 @@ Returns a mock data set that uses the same standard deviation and average.
 **Parameters**
 
 -   `values` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** 
+-   `num` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** a positive integer (optional, default `1`)
 
 **Examples**
 
