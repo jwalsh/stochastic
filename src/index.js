@@ -54,7 +54,7 @@ export function poissP(
  *
  * @example const avg = stoch.average([1, 2, 3]);
  * @param {number[]} values
- * @returns {number} standard deviation as positive number
+ * @returns {number} average
  */
 export function average(data /*: Array<number> */) {
   let sum = data
