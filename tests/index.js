@@ -103,3 +103,9 @@ const result = check(
   { numTests: 1000 }
 )
 console.log(result);
+
+
+const summary = stoch.summary([2, 3, 8, 1000]);
+
+console.log(summary);
+console.log(stoch.summary([1, 2, 3]));

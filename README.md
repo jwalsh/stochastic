@@ -106,6 +106,22 @@ const std = stoch.std([2, 3, 4, 4, 4, 5, 6]);
 
 Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** standard deviation as positive number
 
+### summary
+
+Provides a summary of a set of data.
+
+**Parameters**
+
+-   `values` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** 
+
+**Examples**
+
+```javascript
+const summary = stoch.summary([1, 2, 3]);
+```
+
+Returns **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** R-like summary of values
+
 ### mock
 
 Returns a mock data set that uses the same standard deviation and average.

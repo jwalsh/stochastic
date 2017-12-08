@@ -87,6 +87,53 @@ export function std(values /*: Array<number> */) {
 }
 
 /**
+ * Provides a summary of a set of data.
+ *
+ * @example const summary = stoch.summary([1, 2, 3]);
+ * @param {number[]} values
+ * @returns {object} R-like summary of values
+ */
+export function summary(values /*: Array<number> */) {
+  if (values.length === 0) {
+    return {};
+  }
+  const sorted = values.sort();
+
+  const min = sorted[0];
+  const max = sorted[values.length - 1];
+  const sum = values.reduce((p, c) => { return p + c; }, 0);
+  const median = (function(values) {
+    if (values.length % 2 === 1) {
+      return sorted [(values.length - 1) / 2];
+    } else {
+      return (sorted[values.length - 1] + sorted[values.length - 3]) / 2;
+    }
+  }(values));
+  const mean = average(values);
+  // const std = std(values);
+  const quantile = (function(values) {
+    let result = [25, 50, 75].reduce((p, c) => {
+      p[c] = c;
+      return p;
+    }, {});
+    return result;
+  }(sorted));
+  const result = {
+    min,
+    max,
+    sum,
+    median,
+    mean
+    // std,
+
+  };
+  return result;
+}
+
+
+
+
+/**
  * Returns a mock data set that uses the same standard deviation and average.
  *
  * ![norm](out/mock.png)
