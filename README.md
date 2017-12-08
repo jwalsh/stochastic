@@ -88,7 +88,7 @@ Returns the average.
 const avg = stoch.average([1, 2, 3]);
 ```
 
-Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** standard deviation as positive number
+Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** average
 
 ### std
 
