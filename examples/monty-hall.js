@@ -1,31 +1,34 @@
 // TODO: Migrate to the stochastic library
+let trials = 10;
 
+// Suppose you're on a game show, and you're given the choice of three doors:
 let doors = 3;
 
-let trials = 1000;
-
-let playerSelection;
-
-// Player will always switch doors if true
-let strategySwitch = false;
+// Vos Savant's response was that the contestant should switch to the
+// other door (vos Savant 1990a).
+let strategySwitch = true;
 console.log('Using strategy switch', strategySwitch);
 
-let userWins = [];
+let contestantWins = [];
 
 for (var i = 0; i < trials; i++) {
   console.log('Trial', i);
 
+  //  Behind one door is a car; behind the others, goats.
   let winner = Math.floor(Math.random() * doors);
-  let user = Math.floor(Math.random() * doors);
-  console.log(`User picks door ${user}`);
+  // You pick a door, say No. 1,
+  let contestant = Math.floor(Math.random() * doors);
+  console.log(`Contestant picks door ${contestant}`);
 
-  // Find doors that Monty or the user haven't selected
+  // Find doors that Monty or the contestant haven't selected
   let unclaimed = (new Array(doors))
       .fill(null)
       .map((e, i) => i)
       .filter(e => e !== winner)
-      .filter(e => e !== user);
+      .filter(e => e !== contestant);
 
+  // and the host, who knows what's behind the doors, opens another
+  // door, say No. 3, which has a goat.
   let doorOpen = Math.floor(Math.random() * unclaimed.length);
   console.log('Opening', unclaimed[doorOpen]);
 
@@ -33,26 +36,27 @@ for (var i = 0; i < trials; i++) {
       .fill(null)
       .map((e, i) => i)
       .filter(e => e !== unclaimed[doorOpen])
-      .filter(e => e !== user);
+      .filter(e => e !== contestant);
 
-  // All trials use the same strategy
   if (strategySwitch) {
+    // He then says to you, "Do you want to pick door No. 2?" Is it to
+    // your advantage to switch your choice?
     let doorSwitch = Math.floor(Math.random() * unopened.length);
     let change = unopened[doorSwitch];
-    console.log(`Switching choice from ${user} to ${change}`);
-    user = change;
+    console.log(`Switching choice from ${contestant} to ${change}`);
+    contestant = change;
   } else {
-    console.log(`Retaining original choice from ${user}`);
+    console.log(`Retaining original choice from ${contestant}`);
   }
 
-  let userWin = false;
-  if (user === winner) {
-    userWin = true;
+  let contestantWin = false;
+  if (contestant === winner) {
+    contestantWin = true;
   }
-  userWins.push(userWin);
+  contestantWins.push(contestantWin);
 }
 
-let report = userWins.reduce((p, c) => {
+let report = contestantWins.reduce((p, c) => {
   if (c) {
     p.wins++;
   } else {
