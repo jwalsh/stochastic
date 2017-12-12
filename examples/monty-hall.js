@@ -12,13 +12,13 @@ console.log('Using strategy switch', strategySwitch);
 let contestantWins = [];
 
 for (var i = 0; i < trials; i++) {
-  console.log('Trial', i);
+  console.log('* Trial', i);
 
   //  Behind one door is a car; behind the others, goats.
   let winner = Math.floor(Math.random() * doors);
   // You pick a door, say No. 1,
   let contestant = Math.floor(Math.random() * doors);
-  console.log(`Contestant picks door ${contestant}`);
+  console.log(`  Contestant picks door ${contestant}`);
 
   // Find doors that Monty or the contestant haven't selected
   let unclaimed = (new Array(doors))
@@ -30,7 +30,6 @@ for (var i = 0; i < trials; i++) {
   // and the host, who knows what's behind the doors, opens another
   // door, say No. 3, which has a goat.
   let doorOpen = Math.floor(Math.random() * unclaimed.length);
-  console.log('Opening', unclaimed[doorOpen]);
 
   let unopened = (new Array(doors))
       .fill(null)
@@ -38,21 +37,24 @@ for (var i = 0; i < trials; i++) {
       .filter(e => e !== unclaimed[doorOpen])
       .filter(e => e !== contestant);
 
+  let doorSwitch = Math.floor(Math.random() * unopened.length);
+  let change = unopened[doorSwitch];
+  console.log(`  Monty opens ${unclaimed[doorOpen]}, change to ${change}?`);
+
   if (strategySwitch) {
     // He then says to you, "Do you want to pick door No. 2?" Is it to
     // your advantage to switch your choice?
-    let doorSwitch = Math.floor(Math.random() * unopened.length);
-    let change = unopened[doorSwitch];
-    console.log(`Switching choice from ${contestant} to ${change}`);
+    console.log(`  Switching choice from ${contestant} to ${change}`);
     contestant = change;
   } else {
-    console.log(`Retaining original choice from ${contestant}`);
+    console.log(`  Retaining original choice from ${contestant}`);
   }
 
   let contestantWin = false;
   if (contestant === winner) {
     contestantWin = true;
   }
+  console.log(`  Contestant wins: ${contestantWin} (${contestant} vs. ${winner})`);
   contestantWins.push(contestantWin);
 }
 
