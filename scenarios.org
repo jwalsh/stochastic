@@ -1,0 +1,12 @@
+* Reading
+
+- https://www2.isye.gatech.edu/people/faculty/Alex_Shapiro/TutorialSP.pdf
+- https://github.com/StoreyLab/reading
+
+* Scenarios
+
+** Wasserman:2010:SCC:1965575, Example 24.2 (The Weather.)
+
+Let X = fsunny; cloudyg. A typical
+sequence (depending on where you live) might be
+sunny; sunny; cloudy; sunny; cloudy; cloudy; This process has a discrete state space and a discrete index
