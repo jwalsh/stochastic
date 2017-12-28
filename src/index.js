@@ -220,9 +220,15 @@ export const norm = (mu = 1/*: number */, sigma = 0/*: number */, num = 1/*: num
 
 // https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Beta.html
 // https://github.com/jstat/jstat
-export const rbeta = (n, shape1, shape2, ncp = 0) => {
+const rbeta = (n, shape1, shape2, ncp = 0) => {
 
 };
+
+//
+export const logNorm = (x, meanlog = 0, sdlog = 1, log = false) => {
+
+};
+
 
 
 /**
@@ -242,7 +248,7 @@ export const brown = (
   sigma/*: number */,
   T/*: number */,
   steps/*: number */,
-  path/*: boolean */)/*: Array<number> */ => {
+  path = true/*: boolean */)/*: Array<number> */ => {
   const B_t = [0];
   let B = 0;
   const dt = T / steps;
@@ -284,7 +290,7 @@ export function GBM(
   sigma/*: number */,
   T/*: number */,
   steps/*: number */,
-  path/*: boolean */) /*: Array<number> */ {
+  path = true/*: boolean */) /*: Array<number> */ {
   const S_t = [];
     let B_t = [0];
 
@@ -339,7 +345,7 @@ export function DTMC(
   transMatrix/*: Array<Array<number>> */,
   steps/*: number */,
   start/*: number */,
-  path/*: boolean */) /*: Array<number> */ {
+  path = true/*: boolean */) /*: Array<number> */ {
   //function to check if input is a valid transition matrix
 
   //return null if the transition matrix is not valid
@@ -430,7 +436,7 @@ export function CTMC(
   transMatrix/*: Array<Array<number>> */,
   T/*: number */,
   start/*: number */,
-  path/*: boolean */) /*: {[ts:string]: number} */ {
+  path = true/*: boolean */) /*: {[ts:string]: number} */ {
   // function to determine if input is a valid CTMC transition matrix
 
   //return null if the transition matrix is not valid
