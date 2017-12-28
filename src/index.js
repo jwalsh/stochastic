@@ -1,5 +1,7 @@
 /* @flow */
 
+var _skewness = require( 'compute-skewness' );
+
 /**
  * Returns an array with the times of each arrival in a [Poisson Process](http://en.wikipedia.org/wiki/Poisson_process) with rate `lambda` until time `T`.
  *
@@ -66,6 +68,25 @@ export function average(data /*: Array<number> */) {
 
 
 /**
+ * Returns the mode.
+ *
+ * @example const mode = stoch.mode([1, 2, 3]);
+ * @param {number[]} values
+ * @returns {number} mode
+ */
+export function mode(data /*: Array<number> */) {
+  return data.reduce((p, c) => {
+        var val = p.numMapping[c] = (p.numMapping[c] || 0) + 1;
+        if (val > p.greatestFreq) {
+            p.greatestFreq = val;
+            p.mode = c;
+        }
+        return p;
+    }, {mode: null, greatestFreq: -Infinity, numMapping: {}}).mode;
+}
+
+
+/**
  * Returns the standard deviation.
  *
  * @example const std = stoch.std([2, 3, 4, 4, 4, 5, 6]);
@@ -86,6 +107,7 @@ export function std(values /*: Array<number> */) {
   return Math.sqrt(avgSquareDiff);
 }
 
+
 /**
  * Provides a summary of a set of data.
  *
@@ -97,16 +119,19 @@ export function summary(values /*: Array<number> */) {
   if (values.length === 0) {
     return {};
   }
-  const sorted = values.sort();
+  const sorted = values.sort((a, b) => a - b);
 
   const min = sorted[0];
   const max = sorted[values.length - 1];
+  const range = [min, max];
+
   const sum = values.reduce((p, c) => { return p + c; }, 0);
+  const stdev = std(values);
   const median = (function(values) {
     if (values.length % 2 === 1) {
       return sorted [(values.length - 1) / 2];
     } else {
-      return (sorted[values.length - 1] + sorted[values.length - 3]) / 2;
+      return (sorted[values.length / 2 - 1] + sorted[values.length / 2]) / 2;
     }
   }(values));
   const mean = average(values);
@@ -118,19 +143,23 @@ export function summary(values /*: Array<number> */) {
     }, {});
     return result;
   }(sorted));
+
+  const skewness = _skewness(values);
+  const _mode = mode(values);
+
   const result = {
     min,
     max,
+    range,
     sum,
+    mean,
     median,
-    mean
-    // std,
-
+    mode: _mode,
+    stdev,
+    skewness
   };
   return result;
 }
-
-
 
 
 /**
@@ -159,7 +188,7 @@ export function mock(values /*: Array<number> */, num/*: number */) {
  * @param {number} [num=1] a positive integer
  * @returns {number[]} normal random values
  */
-export const norm = (mu = 1/*: number */, sigma = 0/*: number */, num = 1/*: number */)/*: Array<number> */ =>  {
+export const norm = (mu = 1/*: number */, sigma = 0/*: number */, num = 1/*: number */, xi)/*: Array<number> */ =>  {
   let U1, U2, x, y, z1, z2;
   let sample = [];
 
@@ -187,6 +216,14 @@ export const norm = (mu = 1/*: number */, sigma = 0/*: number */, num = 1/*: num
   }
   return sample;
 };
+
+
+// https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Beta.html
+// https://github.com/jstat/jstat
+export const rbeta = (n, shape1, shape2, ncp = 0) => {
+
+};
+
 
 /**
  * Returns an array corresponding to the path of [Brownian motion](http://en.wikipedia.org/wiki/Wiener_process#Related_processes) from time 0 to `T` with drift parameter `mu` and volatility parameter `sigma` (the process is initialized to be 0). The i-th entry in the array corresponds to the Brownian process at time `i * (T / steps)`.

@@ -3,6 +3,7 @@
   "version": "0.2.4",
   "description": "Simulate Poisson Processes, Brownian motion, Markov chains, and normal random variables",
   "main": "lib/index.js",
+  "types": "lib/main.d.ts",
   "keywords": [
     "stochastic",
     "histogram",
@@ -55,6 +56,7 @@
   },
   "dependencies": {
     "babel-plugin-syntax-flow": "^6.18.0",
+    "compute-skewness": "^1.0.1",
     "lebab": "^2.7.2"
   }
 }

@@ -108,4 +108,4 @@ console.log(result);
 const summary = stoch.summary([2, 3, 8, 1000]);
 
 console.log(summary);
-console.log(stoch.summary([1, 2, 3]));
+console.log(stoch.summary([1, 2, 3, 2, 2, 2, 2, 2, 2, 2]));
