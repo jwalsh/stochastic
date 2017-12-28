@@ -105,7 +105,8 @@ const result = check(
 console.log(result);
 
 
-const summary = stoch.summary([2, 3, 8, 1000]);
 
-console.log(summary);
-console.log(stoch.summary([1, 2, 3, 2, 2, 2, 2, 2, 2, 2]));
+console.log('wide dist\n', stoch.summary([2, 3, 8, 1000]));
+console.log('2 heavy\n', stoch.summary([1, 2, 3, 2, 2, 2, 2, 2, 2, 2]));
+console.log('10000 random\n', stoch.summary((new Array(10000)).fill(null).map(e => parseFloat(Math.random().toPrecision(2)))));
+console.log('norm(mean = 100, std = 10, num = 1000)\n', stoch.summary(stoch.norm(100, 10, 1000).map(e => parseInt(e, 10))));

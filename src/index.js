@@ -1,6 +1,7 @@
 /* @flow */
 
 var _skewness = require( 'compute-skewness' );
+var _kurtosis = require( 'compute-kurtosis' );
 
 /**
  * Returns an array with the times of each arrival in a [Poisson Process](http://en.wikipedia.org/wiki/Poisson_process) with rate `lambda` until time `T`.
@@ -145,6 +146,7 @@ export function summary(values /*: Array<number> */) {
   }(sorted));
 
   const skewness = _skewness(values);
+  const kurtosis = _kurtosis(values);
   const _mode = mode(values);
 
   const result = {
@@ -156,7 +158,8 @@ export function summary(values /*: Array<number> */) {
     median,
     mode: _mode,
     stdev,
-    skewness
+    skewness,
+    kurtosis
   };
   return result;
 }
@@ -218,14 +221,41 @@ export const norm = (mu = 1/*: number */, sigma = 0/*: number */, num = 1/*: num
 };
 
 
+// WIP: Distributions
+
 // https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Beta.html
-// https://github.com/jstat/jstat
-const rbeta = (n, shape1, shape2, ncp = 0) => {
+// Usage: applied in acoustic analysis to assess damage to gears
+const dbeta = (n, shape1, shape2, ncp = 0) => {
 
 };
 
-//
-export const logNorm = (x, meanlog = 0, sdlog = 1, log = false) => {
+// https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Binomial.html
+// Usage: only two mutually exclusive possible outcomes, for example the outcome of tossing a coin is heads or tails
+const dbinom = (x, size, prob, log = FALSE) => {
+
+};
+
+// https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Cauchy.html
+// Usage:
+const dcauchy = (x, location = 0, scale = 1, log = FALSE) => {
+
+};
+
+// Usage:
+const dlevy = () => {
+
+};
+
+// https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Lognormal.html
+// Usage: important in the description of natural phenomena.
+const dlnorm = (x, meanlog = 0, sdlog = 1, log = false) => {
+
+};
+
+// https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Weibull.html
+// https://en.wikipedia.org/wiki/Weibull_distribution
+// Usage: in industrial engineering to represent manufacturing and delivery times
+const dweibull = (x, shape, scale = 1, log = false) => {
 
 };
 

@@ -56,6 +56,7 @@
   },
   "dependencies": {
     "babel-plugin-syntax-flow": "^6.18.0",
+    "compute-kurtosis": "^1.0.0",
     "compute-skewness": "^1.0.1",
     "lebab": "^2.7.2"
   }
