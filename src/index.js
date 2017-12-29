@@ -148,7 +148,7 @@ export function summary(values /*: Array<number> */) {
   const skewness = _skewness(values);
   const kurtosis = _kurtosis(values);
   const _mode = mode(values);
-
+  // mean | moment | skewness | std | var
   const result = {
     min,
     max,
@@ -159,7 +159,7 @@ export function summary(values /*: Array<number> */) {
     mode: _mode,
     stdev,
     skewness,
-    kurtosis
+    excessKurtosis: kurtosis
   };
   return result;
 }

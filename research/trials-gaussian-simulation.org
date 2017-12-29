@@ -1,0 +1,3 @@
+* Background
+
+This is a quick survey of using a simulation of a normal distribution with a kurotosis test.

@@ -7,40 +7,6 @@ import { spec, valid, explain, conform } from 'js.spec';
 const { check, gen, property, sample, sampleOne } = require('testcheck');
 
 
-// spec interface
-// { cat: [Function: m],
-//   alt: [Function: g],
-//   tuple: [Function: f],
-//   map: [Function: f],
-//   and: [Function: f],
-//   collection: [Function: f],
-//   keys: [Function: f],
-//   or: [Function: f],
-//   nilable: [Function: f],
-//   nil: [Function: o],
-//   number: [Function: i],
-//   fn: [Function: u],
-//   obj: [Function: a],
-//   object: [Function: a],
-//   set: [Function: l],
-//   bool: [Function: f],
-//   boolean: [Function: f],
-//   date: [Function: c],
-//   int: [Function: s],
-//   integer: [Function: s],
-//   str: [Function: p],
-//   string: [Function: p],
-//   sym: [Function: y],
-//   symbol: [Function: y],
-//   array: [Function: isArray],
-//   coll: [Function: d],
-//   even: [Function: v],
-//   odd: [Function: h],
-//   positive: [Function: b],
-//   negative: [Function: m],
-//   zero: [Function: g] }
-
-
 console.log(stoch);
 
 const normal = spec.set;
@@ -60,9 +26,6 @@ const average = stoch.average([2, 3, 4, 4, 4, 5, 6]);
 const std = stoch.std([2, 3, 4, 4, 4, 5, 6]);
 const mock = stoch.mock([2, 3, 4, 4, 4, 5, 6], 10);
 console.log('mock', mock);
-
-
-
 
 // const bucket = spec.map('bucket', {
 //   spec.string: spec.number
@@ -101,12 +64,22 @@ const result = check(
     x => x - x === 0
   ),
   { numTests: 1000 }
-)
+);
 console.log(result);
 
 
 
 console.log('wide dist\n', stoch.summary([2, 3, 8, 1000]));
 console.log('2 heavy\n', stoch.summary([1, 2, 3, 2, 2, 2, 2, 2, 2, 2]));
+
+// random
 console.log('10000 random\n', stoch.summary((new Array(10000)).fill(null).map(e => parseFloat(Math.random().toPrecision(2)))));
-console.log('norm(mean = 100, std = 10, num = 1000)\n', stoch.summary(stoch.norm(100, 10, 1000).map(e => parseInt(e, 10))));
+
+// example from wikipedia
+// Here is a paper that elaborates:  Westfall, P.H. (2014). Kurtosis as Peakedness, 1905 – 2014. R.I.P. The American Statistician, 68, 191–195.
+// https://www.spcforexcel.com/knowledge/basic-statistics/are-skewness-and-kurtosis-useful-statistics
+const base = [0, 3, 4, 1, 2, 3, 0, 2, 1, 3, 2, 0, 2, 2, 3, 2, 5, 2, 3, 1];
+console.log('excessKurtosis: 2.78 − 3', stoch.summary(base.concat([1])));
+console.log('excessKurtosis: 18.05 − 3', stoch.summary(base.concat([999])));
+
+console.log('norm(mean = 100, std = 10, num = 10000)\n', stoch.summary(stoch.norm(100, 10, 10000).map(e => parseInt(e, 10))));
