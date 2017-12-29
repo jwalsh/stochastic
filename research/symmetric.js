@@ -4,7 +4,7 @@ var histogram = require('ascii-histogram');
 
 
 // bound 0...1 between 0...b
-let bound = (n, b = 28) => {
+let bound = (n, b = 40) => {
   return Math.floor(n * b);
 };
 
@@ -29,9 +29,9 @@ let tests = [
 ];
 
 let trials = [];
-
-for (var i = 1; i < 200; i+=1) {
-  const data = (new Array(100000))
+const start = 5;
+for (var i = 5; i < 650; i+=1) {
+  const data = (new Array(1000))
         .fill(null)
         .map(e => tests[0].rand(i))
         .map(e => bound(e))
@@ -48,12 +48,12 @@ for (var i = 1; i < 200; i+=1) {
   console.log(histogram(dist));
   let k = kurtosis( data );
   trials.push(k);
-  console.log(i, 'kurtosis', k);
+  console.log(i, 40, 'kurtosis', k);
 
 }
 
 let out = trials.reduce((p, c, i) => {
-  p += `${i},${c}\n`;
+  p += `${i + start},${c}\n`;
   return p;
 }, '');
 
