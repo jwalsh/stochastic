@@ -182,6 +182,22 @@ export function mock(values /*: Array<number> */, num/*: number */) {
 
 
 /**
+ * Returns the Skew-Normal (SN) probability distribution.
+ * http://azzalini.stat.unipd.it/SN/
+ *
+ * @example const rsn = stoch.rsn(10000, 1.256269, 1.605681, 5);
+ * @param {number} n
+ * @param {number} location
+ * @param {number} scale
+ * @param {number} shape
+ * @returns {number[]} average
+ */
+export function rsn(n/*: number */, location/*: number */, scale/*: number */, shape/*: number */) {
+  return false;
+}
+
+
+/**
  * Returns an array with `num` normal random variables in a [normal distribution](http://en.wikipedia.org/wiki/Normal_distribution) of mean `mu` and standard deviation `sigma`.
  *
  * ![norm](out/norm.png)
