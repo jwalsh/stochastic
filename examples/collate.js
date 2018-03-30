@@ -1,5 +1,5 @@
 // Problem: Determine when a biased coin has been switched
-import * as stoch from '../src/index';
+import * as stochastic from '../src/index';
 
 // http://www.lipsum.com/
 const lorem = 'Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec cursus velit ut metus consequat, et consequat nisl lobortis. Donec pellentesque scelerisque tincidunt. Quisque in arcu neque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas aliquam ullamcorper mi porta facilisis. Morbi molestie lacus nisi, sit amet sodales mauris suscipit quis. Quisque congue faucibus orci, fermentum dapibus diam auctor et. Curabitur dictum bibendum nisl nec facilisis. Aliquam et pellentesque nisi. Fusce sollicitudin porttitor purus vel pellentesque. Nullam maximus pulvinar massa, et scelerisque nibh bibendum sit amet. Pellentesque vestibulum ultricies felis eu auctor. Maecenas vitae enim a nulla sodales eleifend. Cras interdum augue eu varius tristique. Mauris feugiat semper magna, et tincidunt urna aliquet quis.';
@@ -44,8 +44,8 @@ const lookup = uniques
 const states = example
         .map((e, i, c) => lookup[e]);
 
-const transMatrix = stoch.collate(states);
+const transMatrix = stochastic.collate(states);
 // console.log(transMatrix);
 
-const dtmc = stoch.DTMC(transMatrix, 100, 0, true);
+const dtmc = stochastic.DTMC(transMatrix, 100, 0, true);
 console.log('Example:', dtmc.map((e, i, c) => uniques[e]).join(JOINER));

@@ -1,7 +1,7 @@
 // hist(arr)
 import {plot} from 'plotter';
 
-import * as stoch from '../src/index';
+import * as stochastic from '../src/index';
 
 // [ 31, 63, 41, 60, 35...]
 const arr = Array
@@ -11,8 +11,8 @@ const arr = Array
       .map(
         (e, i, c) => Math.round(Math.random() * 100));
 
-// var hist = stoch.hist(arr);
-const hist = stoch.hist([1,1,1,1,2,3,3,4,4,4]);
+// var hist = stochastic.hist(arr);
+const hist = stochastic.hist([1,1,1,1,2,3,3,4,4,4]);
 
 
 const data = Object.keys(hist).map((e, i, c) => { return hist[e]; });

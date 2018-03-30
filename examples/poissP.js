@@ -2,9 +2,9 @@
 
 import {plot} from 'plotter';
 
-import * as stoch from '../src/index';
+import * as stochastic from '../src/index';
 
-const poissP = stoch.poissP(1, 100, true);
+const poissP = stochastic.poissP(1, 100, true);
 
 console.log(poissP);
 

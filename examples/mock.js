@@ -1,12 +1,12 @@
 // mock(values)
 
-import * as stoch from '../src/index';
+import * as stochastic from '../src/index';
 
 import {plot} from 'plotter';
 
 
-const mock = stoch.mock(stoch.norm(1, 1, 100));
-const hist = stoch.hist(mock);
+const mock = stochastic.mock(stochastic.norm(1, 1, 100));
+const hist = stochastic.hist(mock);
 
 const data = Object.keys(hist).map((e, i, c) => { return hist[e]; });
 console.log(hist, data);

@@ -16,18 +16,18 @@ Real-world examples will be provided from some of the following texts or courses
 
 ## Usage
 
-### ES2015
-
-```javascript
-import * as stoch from '@jwalsh/stochastic';
-const exp = stoch.exp(20);
-```
-
 ### CommonJS
 
 ```javascript
-var stoch = require('@jwalsh/stochastic');
-var norm = stoch.norm(1, 1, 100);
+var stochastic = require('@jwalsh/stochastic');
+var norm = stochastic.norm(1, 1, 100);
+```
+
+### ES2015
+
+```javascript
+import * as stochastic from '@jwalsh/stochastic';
+const exp = stochastic.exp(20);
 ```
 
 ### CDN
@@ -35,7 +35,7 @@ var norm = stoch.norm(1, 1, 100);
 ```html
 <script src="https://cdn.rawgit.com/jwalsh/stochastic/master/dist/bundle.min.js"></script>
 <script>
-  console.log(stoch.exp(20));
+  console.log(stochastic.exp(20));
 </script>
 ```
 
@@ -64,11 +64,11 @@ over the course of a standard 261 work-day year
 **Examples**
 
 ```javascript
-const poissP = stoch.poissP(1, 100, true);
+const poissP = stochastic.poissP(1, 100, true);
 ```
 
 ```javascript
-const emails = stoch.hist(Array(261).fill().map(e => stoch.poissP(10, 8, true).length));
+const emails = stochastic.hist(Array(261).fill().map(e => stochastic.poissP(10, 8, true).length));
 ```
 
 Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** times of each arrival in a Poisson Process
@@ -85,10 +85,27 @@ Returns the average.
 **Examples**
 
 ```javascript
-const avg = stoch.average([1, 2, 3]);
+const avg = stochastic.average([1, 2, 3]);
 ```
 
 Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** average
+
+### mode
+
+Returns the mode.
+
+**Parameters**
+
+-   `data`  
+-   `values` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** 
+
+**Examples**
+
+```javascript
+const mode = stochastic.mode([1, 2, 3]);
+```
+
+Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** mode
 
 ### std
 
@@ -101,7 +118,7 @@ Returns the standard deviation.
 **Examples**
 
 ```javascript
-const std = stoch.std([2, 3, 4, 4, 4, 5, 6]);
+const std = stochastic.std([2, 3, 4, 4, 4, 5, 6]);
 ```
 
 Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** standard deviation as positive number
@@ -117,7 +134,7 @@ Provides a summary of a set of data.
 **Examples**
 
 ```javascript
-const summary = stoch.summary([1, 2, 3]);
+const summary = stochastic.summary([1, 2, 3]);
 ```
 
 Returns **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** R-like summary of values
@@ -136,10 +153,30 @@ Returns a mock data set that uses the same standard deviation and average.
 **Examples**
 
 ```javascript
-const mock = stoch.mock(stoch.norm(1, 1, 100));
+const mock = stochastic.mock(stochastic.norm(1, 1, 100));
 ```
 
 Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** standard deviation as positive number
+
+### rsn
+
+Returns the Skew-Normal (SN) probability distribution.
+<http://azzalini.stat.unipd.it/SN/>
+
+**Parameters**
+
+-   `n` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `location` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `scale` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `shape` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 0 is the normal distribution (optional, default `/*: number */0`)
+
+**Examples**
+
+```javascript
+const rsn = stochastic.rsn(10000, 1.256269, 1.605681, 5);
+```
+
+Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** average
 
 ### norm
 
@@ -152,11 +189,12 @@ Returns an array with `num` normal random variables in a [normal distribution](h
 -   `mu` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** the mean or expectation of the distribution (and also its median and mode) (optional, default `1`)
 -   `sigma` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** standard deviation as positive number (optional, default `0`)
 -   `num` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** a positive integer (optional, default `1`)
+-   `xi`  
 
 **Examples**
 
 ```javascript
-const norm = stoch.norm(1, 1, 100);
+const norm = stochastic.norm(1, 1, 100);
 ```
 
 Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** normal random values
@@ -178,7 +216,7 @@ Returns an array corresponding to the path of [Brownian motion](http://en.wikipe
 **Examples**
 
 ```javascript
-const brown = stoch.brown(1.0, -0.1, +0.1, 100, true);
+const brown = stochastic.brown(1.0, -0.1, +0.1, 100, true);
 ```
 
 Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** Brownian motion path
@@ -201,7 +239,7 @@ Returns an array corresponding to the path of [geometric Brownian motion](http:/
 **Examples**
 
 ```javascript
-const GBM = stoch.GBM(1.0, -0.1, 0.1, 1.0, 100, true);
+const GBM = stochastic.GBM(1.0, -0.1, 0.1, 1.0, 100, true);
 ```
 
 Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** geometric Brownian motion
@@ -217,12 +255,12 @@ Returns an array with the states at each step of the [discrete-time Markov Chain
 -   `transMatrix` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>>** 
 -   `steps` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** (positive integer)
 -   `start` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `path` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+-   `path` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**  (optional, default `true`)
 
 **Examples**
 
 ```javascript
-const DTMC = stoch.DTMC([[0,1,0],[0,0,1],[1,0,0]], 20, 0, true);
+const DTMC = stochastic.DTMC([[0,1,0],[0,0,1],[1,0,0]], 20, 0, true);
 ```
 
 Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** 
@@ -238,7 +276,7 @@ Returns the `transMatrix` for an array of mapped `states` to numerical values.
 **Examples**
 
 ```javascript
-const collate = stoch.collate([0,1,0,0,0,1,1,0,0]);
+const collate = stochastic.collate([0,1,0,0,0,1,1,0,0]);
 ```
 
 Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>>** transMatrix
@@ -259,7 +297,7 @@ Returns an object with the {key:value} pair {time:state} at each step of the [co
 **Examples**
 
 ```javascript
-const CTMC = stoch.CTMC([[0,1,0],[0,0,1],[1,0,0]], 20, 0, true);
+const CTMC = stochastic.CTMC([[0,1,0],[0,0,1],[1,0,0]], 20, 0, true);
 ```
 
 Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Continuous-time Markov chain
@@ -276,7 +314,7 @@ Generates a random sample (with replacement) from array `arr` of observations. N
 **Examples**
 
 ```javascript
-const sample = stoch.sample([1,2,3,4,5], +10);
+const sample = stochastic.sample([1,2,3,4,5], +10);
 ```
 
 Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** random sample
@@ -292,7 +330,7 @@ Generates an exponential random variable with rate parameter `lambda`.
 **Examples**
 
 ```javascript
-const exp = stoch.exp(20);
+const exp = stochastic.exp(20);
 ```
 
 Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** variable
@@ -310,7 +348,7 @@ Generates a Pareto random variables with parameters `x_m` and `alpha`.
 **Examples**
 
 ```javascript
-const pareto = stoch.pareto(+20.0, -1.0);
+const pareto = stochastic.pareto(+20.0, -1.0);
 ```
 
 Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** distribution
@@ -329,7 +367,7 @@ Generates a histogram object from an array of data. Keys denote the lower bound 
 **Examples**
 
 ```javascript
-const hist = stoch.hist([1,1,1,1,2,3,3,4,4,4]);
+const hist = stochastic.hist([1,1,1,1,2,3,3,4,4,4]);
 ```
 
 Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** histogram

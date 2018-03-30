@@ -2,7 +2,7 @@
 
 import {plot} from 'plotter';
 
-import * as stoch from '../src/index';
+import * as stochastic from '../src/index';
 
 const transMatrixTwo = [
     [0, 1, 0],
@@ -10,9 +10,9 @@ const transMatrixTwo = [
     [0, 1, 0]
 ];
 
-// var DTMC = stoch.DTMC([[0,1,0],[0,0,1],[1,0,0]], 20, 0, true);
-const DTMC = stoch.DTMC([[0,1,0],[0,0,1],[.5,.5,0]], 20, 0, true);
-// var DTMC = stoch.DTMC(transMatrixTwo, 20, 0, true);
+// var DTMC = stochastic.DTMC([[0,1,0],[0,0,1],[1,0,0]], 20, 0, true);
+const DTMC = stochastic.DTMC([[0,1,0],[0,0,1],[.5,.5,0]], 20, 0, true);
+// var DTMC = stochastic.DTMC(transMatrixTwo, 20, 0, true);
 
 console.log(DTMC);
 

@@ -1,7 +1,7 @@
 // exp(lambda)
 
-import * as stoch from '../src/index';
+import * as stochastic from '../src/index';
 
-const exp = stoch.exp(20);
+const exp = stochastic.exp(20);
 
 console.log(exp);

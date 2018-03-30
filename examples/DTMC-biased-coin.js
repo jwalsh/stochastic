@@ -1,5 +1,5 @@
 // Problem: Determine when a biased coin has been switched
-import * as stoch from '../src/index';
+import * as stochastic from '../src/index';
 
 // Is the biased or fair coin used
 const coinMode = [
@@ -9,7 +9,7 @@ const coinMode = [
 
 // Visualize the ground true for when a coin has been switch between fair and biased
 // Use 1000 as the base example
-const activeCoin = stoch.DTMC(coinMode, 1000, 0, true);
+const activeCoin = stochastic.DTMC(coinMode, 1000, 0, true);
 // console.log(activeCoin);
 const stateCoin = ['H', 'T'];
 

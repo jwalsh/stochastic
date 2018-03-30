@@ -1,7 +1,7 @@
 // pareto(x_m,alpha)
 
-import * as stoch from '../src/index';
+import * as stochastic from '../src/index';
 
-const pareto = stoch.pareto(+20.0, -1.0);
+const pareto = stochastic.pareto(+20.0, -1.0);
 
 console.log(pareto);
